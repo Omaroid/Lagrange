@@ -5,7 +5,6 @@ author: "Paul Le"
 categories: journal
 tags: [documentation,sample]
 image: forest.jpg
-published: false
 ---
 
 # Lagrange
