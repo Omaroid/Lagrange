@@ -24,7 +24,7 @@ pagination:
   next_page: 'Suivant'
   previous_page: 'Précédent'
 
-sharing_button_prompt: 'N'hésitez pas à partager'
+sharing_button_prompt: "N'hésitez pas à partager"
 
 related_posts: 'Recommandations'
 
