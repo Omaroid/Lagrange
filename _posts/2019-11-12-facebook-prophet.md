@@ -23,5 +23,5 @@ données qui représentent des données manquantes ou comportant des valeurs abe
 Pour les non statisticiens ou data scientistes, il est assez délicat de partir sur une connaissance des principes d’analyse et de prévision temporelles
 mais Prophet est venu répondre à ce besoin de la plus simple des façon.
 
-L’objectif de l’article est de faire une introduction de Prophet sous Python :snake:. Les données et le code seront disponibles sur le Github de
+L’objectif de l’article est de faire une introduction de Prophet sous Python 🐍. Les données et le code seront disponibles sur le Github de
 Ingeniance ainsi que sur Google Colaboratory en fin du blog.
