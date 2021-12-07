@@ -48,3 +48,13 @@ la figure suivante:
 
 ![additive_vs_multiplicative_seasonality](assets/img/facebook_prophet/additive_multiplicative_seasonality.png "Saisonnalité additive vs multiplicative")
 
+Par défaut, Prophet adapte son modèle à travers un modèle additif, mais supporte également le modèle multiplicatif.
+
+```python
+# Modèle additif
+additiveModel = Prophet()
+additiveModel = Prophet(seasonality_mode='additive')
+
+# Modèle multiplicatif
+MultiplicativeModel = Prophet(seasonality_mode='multiplicative')
+```
