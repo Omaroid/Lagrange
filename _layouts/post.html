@@ -14,6 +14,17 @@ layout: default
 {% if site.hide_post_date != true %}
   {% include post-date.html %}
 {% endif %}
+<div class="tags">
+  {% if page.tags != null %}
+  <b>Tags: </b>
+  {% assign projectTags = site.data.tags.allowed-tags %}
+  {% for tag in page.tags %}
+  {% if projectTags contains tag %}
+  <a href="{{ "tag_" | append: tag | append: ".html" }}" class="btn btn-default navbar-btn cursorNorm" role="button">{{page.tagName}}{{tag}}</a>
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+</div>
 {% if site.hide_post_share != true %}
   {% include social-sharing.html %}
 {% endif %}
