@@ -244,7 +244,7 @@ la période des 5 années à venir.
 
 L’analyse des séries temporelles a depuis toujours été une branche très étudiée en analyse de données et en machine learning et la création de telles librairies par l’une des plus grandes entreprises du monde en est la preuve. Ces librairies viennent cacher la complexité d’une connaissance poussée des statistiques en simplifiant la réalisation des prédictions, leur visualisation et leur exportation de la plus simple des façons.
 
-![EverythingIsWellPredicted](https://giphy.com/gifs/starwars-season-2-star-wars-l3fZW5FcwQqxkz5uw)
+![EverythingIsWellPredicted](https://media3.giphy.com/media/l3fZW5FcwQqxkz5uw/giphy.gif?cid=790b76118c65251890096b5b5b5d771a98ab098a391c1a3a&rid=giphy.gif&ct=g)
 
 ## Liens utiles
 
