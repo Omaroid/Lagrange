@@ -21,10 +21,10 @@ social:
 
 # Customize site text
 pagination:
-  next_page: 'Suivant'
-  previous_page: 'Précédent'
+  next_page: 'Next'
+  previous_page: 'Previous'
 
-sharing_button_prompt: "N'hésitez pas à partager"
+sharing_button_prompt: "Don't forget to share!"
 
 related_posts: 'Recommandations'
 

@@ -39,9 +39,9 @@ Une opération de type action sur un PythonRDD déclenche en plus le chemin inve
 
 Du moment que toute la partie persistance des données est gérée sur la JVM des noeuds maitre et executeurs, on sera sur des performances égales à des runs sur Scala ou Java. La différence sur Python est principalement due au travail effectué par le process de sérialisation entre le driver PySpark et le process Py4J. Tout dépendra donc de la taille des données que l\'on est entrain de sérialiser ou désérialiser. Néanmoins, avec la puissance de calcul en augmentation continue, on peut juger que cette différence de l\'ordre du millisecondes près peut être parfois négligeable devant la possibilité d\'utiliser un langage aussi simple et intuitif que Python pour lancer des jobs Spark. 🙂
 
-Pour pousser vos recherches sur les sujets abordés lors de ce blog, je vous invite à consulter:
+## Liens utiles
 
+Pour pousser vos recherches sur les sujets abordés lors de ce blog, je vous invite à consulter:
 - [La page officielle de Py4J](https://www.py4j.org/) pour comprendre comment un interpréteur Python échange avec une JVM
 - [La bibliothèque pickle](https://docs.python.org/3/library/pickle.html) de Python pour la serialisation et deserialisation d\'objets
 - [Le code source officiel de PySpark](https://github.com/apache/spark/tree/0cf59fcbe3799dd3c4469cbf8cd842d668a76f34/python/pyspark) où le code est remarquablement simple à comprendre nottament les fichiers [cloudpickle.py](https://github.com/apache/spark/blob/0cf59fcbe3799dd3c4469cbf8cd842d668a76f34/python/pyspark/cloudpickle.py) et [java_gateway.py](https://github.com/apache/spark/blob/0cf59fcbe3799dd3c4469cbf8cd842d668a76f34/python/pyspark/java_gateway.py) pour les explication de ce blog
-- S\'abonner à la newsletter et à la page Instagram du blog pour etre informé de toutes nos nouvelles publications 😁
