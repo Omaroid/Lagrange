@@ -7,7 +7,7 @@ tags: [ai,machine learning,time series]
 image: facebookProphet.jpg
 ---
 
-#Présentation
+## Présentation
 
 Il y a 3 ans, l’équipe de Facebook Core Data Science team à sorti un open source, un puissant outil de prévision pour les séries temporelles, appelé Prophet.
 
