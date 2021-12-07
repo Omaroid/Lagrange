@@ -46,5 +46,5 @@ La saisonnalité est une caractéristique commune des séries chronologiques. Il
 Dans le premier cas, l'amplitude de la variation saisonnière est indépendante du niveau, tandis que dans le second, elle est liée. Comme le montre 
 la figure suivante:
 
-[additive_vs_multiplicative_seasonality](assets/img/facebook_prophet/additive_multiplicative_seasonality.png "Saisonnalité additive vs multiplicative")
+![additive_vs_multiplicative_seasonality](assets/img/facebook_prophet/additive_multiplicative_seasonality.png "Saisonnalité additive vs multiplicative")
 
