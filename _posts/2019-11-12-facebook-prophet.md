@@ -137,3 +137,118 @@ variance")
 plt.rcParams["figure.figsize"] = [15,9]
 plt.show(block = False)
 ```
+
+On remarque que la courbe présente une tendance à la hausse durant toute la période étudiée (sauf en 2008 période de la crise financière) mais  également un effet saisonnier avec une hausse pour certaines périodes de l’année et une forte baisse pour d’autres. Pour mieux voir ceci, on affiche l’allure de la courbe pendant les années de 1992 jusqu'à 1995.
+
+```python
+ye1 = plt.plot(indexedDataframe[0:11], color = "blue", label = "1992")
+ye2 = plt.plot(indexedDataframe[12:23], color = "orange", label = "1993")
+ye3 = plt.plot(indexedDataframe[24:35], color = "green", label = "1994")
+ye4 = plt.plot(indexedDataframe[36:47], color = "red", label = "1995")
+plt.legend(loc = "best")
+plt.title("Tendance des ventes par date sur 4 années")
+plt.show(block = False)
+```
+
+## image
+
+
+Courbe dont l’allure est non stationnaire et suit une tendance saisonnière avec peu de ventes sur les 1 ers mois de l'année. Les ventes augmentent de façon significative pendant l'été et retombent après le mois d’Août et reprennent leurs hausses pendant la période de noël.
+Pour comprendre l'évolution des ventes en 2008, on analysera les quelques années qui ont suivi 2008.
+
+
+```python
+crisis08 = plt.plot(indexedDataframe.loc['2008-01-01':'2008-12-30'], color = "blue", label = "2008")
+crisis09 = plt.plot(indexedDataframe.loc['2009-01-01':'2009-12-30'], color = "red", label = "2009")
+crisis09 = plt.plot(indexedDataframe.loc['2010-01-01':'2010-12-30'], color = "green", label = "2010")
+plt.legend(loc = "best")
+plt.title("Tendance des ventes par date sur la période après crise de 2008")
+plt.show(block = False)
+```
+
+## image
+
+Le graphe précédent relate l'impact de la crise financière de 2008 sur le nombre de ventes. En effet, les ventes ont baissé durant l'année 2009 pour reprendre la tendance positive progressive à partir de 2010.
+Passons aux prédictions, on commence par créer un objet Prophet en lui passant en paramètre le type de saisonnalité car on est face à une saisonnalité multiplicative.
+
+```python
+prophetModel = Prophet(seasonality_mode="multiplicative")
+```
+
+On entraîne le modèle sur notre jeu de données.
+
+```python
+prophetModel = prophetModel.fit(RetailSalesDataframe)
+```
+
+Une fois que c’est fait, on lance les prévisions sur la fréquence ainsi que le nombre de période voulus, pour mon cas, j’ai choisi une prévision sur 60 
+mois (5ans) et donc jusqu'en Avril 2021:
+
+```python
+future = prophetModel.make_future_dataframe(periods=60, freq='M')
+```
+
+L’argument _freq_ peut être n’importe quel argument de type pd.date_range, comme **D** pour **Daily**  ou **M** pour **Monthly**.
+
+Pour voir les ventes prévus dans 5ans (à partir de 2016):
+
+```python
+forecast = prophetModel.predict(future)
+forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].tail()
+```
+
+## Image
+
+Le yhat ou y prevu est le résultat prévu avec un degré de certitude de 95% que notre résultat sera forcement entre le yhat_lower et le yhat_upper. 
+Enfin on affiche le graphe qui résume ces résultats:
+
+```python
+fig1 = prophetModel.plot(forecast)
+```
+
+## Image
+
+```python
+fig2 = prophetModel.plot_components(forecast)
+```
+
+## Image
+
+## L'évaluation du modèle
+
+Pour diagnostiquer nos résultats, il faudra bien comparer sur les données en entrées à celles que Prophet à prévu. Pour ceci, Prophet propose d’effectuer une validation croisée sur notre modèle sur un intervalle de temps. La période d’entrainement est 3 fois l’horizon et les coupures ont lieux chaque mi-horizon mais c’est possible de personnaliser ces paramètres lors de l’appel. Pour mon cas, j’ai donné 21 ans comme période d’entrainement initial, une période d’un mois et 6 mois d’horizon.
+
+```python
+df_cv = cross_validation(prophetModel, initial = '7665 days', period = 
+'30 days', horizon = '180 days')
+df_p = performance_metrics(df_cv)
+df_p
+```
+
+## Image
+
+L’erreur absolue moyenne en pourcentage (Mean Absolute Percentage Error, alias MAPE) est la moyenne des écarts en valeur absolue par rapport aux valeurs observées. C’est donc un pourcentage et par conséquent un indicateur pratique de comparaison.
+
+```python
+fig = plot_cross_validation_metric(df_cv, metric='mape')
+```
+
+## Image
+
+Pour notre cas, le MAPE ne dépasse pas les 2.5% et donc on peut juger que nos prédictions sont excellentes pour avoir une vision des ventes sur 
+la période des 5 années à venir.
+
+> Pour récompenser vos efforts pour arriver à la fin, un bonus relatif à expérimentation des jours fériés vous attends au niveau du code sur le repository Github et le notebook Google Collaboratory.
+
+## Conclusion
+
+L’analyse des séries temporelles a depuis toujours été une branche très étudiée en analyse de données et en machine learning et la création de telles librairies par l’une des plus grandes entreprises du monde en est la preuve. Ces librairies viennent cacher la complexité d’une connaissance poussée des statistiques en simplifiant la réalisation des prédictions, leur visualisation et leur exportation de la plus simple des façons.
+
+![EverythingIsWellPredicted](https://giphy.com/gifs/starwars-season-2-star-wars-l3fZW5FcwQqxkz5uw)
+
+## Liens utiles
+
+* [Lien du notebook](https://colab.research.google.com/drive/1cERRgwnulScgj3bzHeqoet4SYN6f1Sza?usp=sharing)
+* [Documentation officielle](https://facebook.github.io/prophet/)
+* [Bibliothèque holidays](https://github.com/dr-prodigy/python-holidays)
+* [Article de recherche: Forecasting at scale](https://peerj.com/preprints/3190.pdf)
