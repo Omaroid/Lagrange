@@ -32,11 +32,11 @@ Le grand nombre de problèmes de prévisions qui peuvent parfois venir d’un ca
 Le grand nombre de sujets sur lesquels il est possible d’appliquer des prévisions temporelles qui demandent des configurations différentes
 Prophet vient répondre à ce problème avec:
 
-* Une intégration sous R et Python
+### Une intégration sous R et Python
 
 Prophet propose sa bibliothèque sous **CRAN** pour les utilisateurs de R ainsi que sur **PyPi** pour les adeptes de Python.
 
-* Une saisonnalité additive et multiplicative
+### Une saisonnalité additive et multiplicative
 
 La saisonnalité est une caractéristique commune des séries chronologiques. Il peut apparaître sous deux formes:
 
@@ -48,7 +48,7 @@ la figure suivante:
 
 ![additive_vs_multiplicative_seasonality](assets/img/facebook_prophet/additive_multiplicative_seasonality.png "Saisonnalité additive vs multiplicative")
 
-Par défaut, Prophet adapte son modèle à travers un modèle additif, mais supporte également le modèle multiplicatif.
+Par défaut, Prophet adapte son modèle à travers un modèle additif, mais supporte également le modèle multiplicatif.[(Documentation)](https://facebook.github.io/prophet/docs/multiplicative_seasonality.html)
 
 ```python
 # Modèle additif
@@ -58,3 +58,27 @@ additiveModel = Prophet(seasonality_mode='additive')
 # Modèle multiplicatif
 MultiplicativeModel = Prophet(seasonality_mode='multiplicative')
 ```
+
+### Un support des données mensuelles et sous quotidiennes
+
+Prophet supporte les séries non quotidiennes de type mensuel (si on a un enregistrement par mois) ou sous quotidien (si on a un enregistrement toutes les 6 ou 12 heures par exemple). **Prophet** s’adapte automatiquement à ce type de données sans lui indiquer ceci en analysant l'écart entre les lignes du jeu de données d’entrée.[(Documentation)](https://facebook.github.io/prophet/docs/non-daily_data.html)
+
+### Un support des événements spéciaux, jours fériés et vacances
+
+Un point très fort de Prophet est la possibilité de personnaliser une saisonnalité dépendamment de plusieurs événements spéciaux, fêtes et vacances. Il est possible d’utiliser ses fonctions pour créer de façon automatique une liste d'évènements par **pays**, **région**, **département** et **année** et les passer au modèle pour apprentissage.
+Si tout de même vous n'êtes pas satisfaits par le nombre de pays assez restreint, il est possible d’utiliser la bibliothèque **holidays** ou même en important son propre jeu de données de ces événements. Prophet s’adaptera automatiquement pour en tenir compte.
+
+> Sous Python, ces événements sont disponibles pour n’importe quelle date de n’importe quelle année.
+
+> Sous R, ces événements sont disponibles entre 1995 et jusqu'en 2044 et pouvant être étendues en lançant un script qui vient avec Prophet pour en générer d’avantage.
+
+### Une gestion des valeurs aberrantes
+
+Prophet peut gérer les individus aberrants de façon automatique en ne tenant pas compte de leurs présence lors du calcul des prévisions. Or, des fois il trouvera des difficultés pour le faire et si un grand nombre de valeurs aberrantes est présent à un certain moment, ceci peut biaiser les prédictions futures. Pour ceci, Facebook Prophet demande à les supprimer de la série du moment que Prophet supporte les valeurs manquantes qui seront remplacés par les prévisions de son modèle.[(Documentation)](https://facebook.github.io/prophet/docs/outliers.html)
+
+### Une gestion des changements de tendance
+
+Prophet propose une gestion des changements sur la courbe, en positionnant sur les 80% de la courbe et de façon uniforme des points de changement (25 point pour être précis) et réduira ce nombre de points au fur et à mesure qu’il paramètre son modèle pour ne garder que le minimum. Il est même possible d’indiquer de façon manuelle les points de changement sur la courbe.
+La flexibilité de la courbe de prédiction est automatiquement initialisée, mais on peut également la modifier en spécifiant le paramètre de flexibilité à la création du modèle.[(Documentation)](https://facebook.github.io/prophet/docs/trend_changepoints.html#automatic-changepoint-detection-in-prophet)
+
+
