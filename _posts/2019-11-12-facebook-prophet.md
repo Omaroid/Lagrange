@@ -81,4 +81,59 @@ Prophet peut gérer les individus aberrants de façon automatique en ne tenant p
 Prophet propose une gestion des changements sur la courbe, en positionnant sur les 80% de la courbe et de façon uniforme des points de changement (25 point pour être précis) et réduira ce nombre de points au fur et à mesure qu’il paramètre son modèle pour ne garder que le minimum. Il est même possible d’indiquer de façon manuelle les points de changement sur la courbe.
 La flexibilité de la courbe de prédiction est automatiquement initialisée, mais on peut également la modifier en spécifiant le paramètre de flexibilité à la création du modèle.[(Documentation)](https://facebook.github.io/prophet/docs/trend_changepoints.html#automatic-changepoint-detection-in-prophet)
 
+### Et bien plus...
 
+Outre les forces déjà citées, [l’article scientifique](https://peerj.com/preprints/3190/) de Facebook Data Science team et la [documentation officielle](https://facebook.github.io/prophet/docs/quick_start.html) peuvent vous convaincre d’avantage d’utiliser Prophet et commencer à faire vos prévisions temporelles.
+
+## POC
+
+L’exemple sur lequel on va travailler est un exemple dans le domaine du retail, qui est l’exemple Retail Sales. Ce jeu de données concerne le nombre mensuel des ventes réalisés entre Janvier 1992 et Mai 2016 ce qui équivaut à 293 lignes de données représentées sur 2 colonnes:
+
+* Une colonne de type **datetime** dont le label est **ds**
+* Une colonne de type **entier** dont le label est **y**
+
+> Si les colonnes du jeu de données ne sont pas ['ds', 'y'], il est nécessaire d’enlever les colonnes non pertinentes et de renommer les entêtes de colonnes.
+
+On commence par installer et importer les bibliothèques nécessaires.
+
+```python
+import pandas as pd
+import matplotlib.pyplot as plt
+import matplotlib.dates as dates
+from datetime import datetime
+
+# Facebook Prophet
+!pip install fbprophet
+from fbprophet import Prophet
+from fbprophet.diagnostics import cross_validation
+from fbprophet.diagnostics import performance_metrics
+from fbprophet.plot import plot_cross_validation_metric
+from fbprophet import hdays
+
+!pip install holidays
+import holidays
+```
+
+On importe par la suite le jeu de données, on reformate le type des colonnes et on mets l’index sur la colonnes **ds**.
+
+```python
+RetailSalesDataframe = pd.read_csv("./RetailSales.csv", delimiter=",")
+RetailSalesDataframe["ds"] = pd.to_datetime(RetailSalesDataframe["ds"], infer_datetime_format=True)
+RetailSalesDataframe["y"] = pd.to_numeric(RetailSalesDataframe["y"])
+indexedDataframe = RetailSalesDataframe.set_index(["ds"])
+```
+
+Pour visualiser et comprendre les données, on calcule la moyenne mobile et l'écart type et on les affiche.
+
+```python
+Roolmean = indexedDataframe.rolling(window = 12).mean()
+Roolstd = indexedDataframe.rolling(window = 12).std()
+orig = plt.plot(indexedDataframe, color = "blue", label = "Original")
+mean = plt.plot(Roolmean, color = "red", label = "Moyenne mobile")
+std = plt.plot(Roolstd, color = "black", label = "Ecart Type")
+plt.legend(loc = "best")
+plt.title("Tendance des ventes par date avec la moyenne mobile et la 
+variance")
+plt.rcParams["figure.figsize"] = [15,9]
+plt.show(block = False)
+```
