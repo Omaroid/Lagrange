@@ -3,7 +3,7 @@ layout: post
 title: "Facebook Prophet"
 author: "Omar LARAQUI"
 categories: journal
-tags: [ai,machineLearning,timeSeries]
+tags: [ai,machine learning,time series]
 image: facebookProphet.jpg
 ---
 
