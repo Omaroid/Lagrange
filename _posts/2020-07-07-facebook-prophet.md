@@ -3,7 +3,7 @@ layout: post
 title: "Facebook Prophet dans toute sa splendeur 🔮"
 author: "Omar LARAQUI"
 categories: journal
-tags: [ai,machinelearning,timeseries]
+tags: ["ai","machine\ learning","time\ series"]
 image: facebookProphet.jpg
 ---
 
